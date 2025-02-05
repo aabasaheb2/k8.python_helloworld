@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" message="width=device-width, initial-scale=1.0">
+    <title>Messaging Application</title>
+	<link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}"/>
+</head>
+<body>
+    <h1>Messaging Application</h1>
+    <hr>
+    <div class="message">
+        <form method="POST">
+            <p>
+                <b><label for="message">Enter Your Message</label></b>
+            </p>
+            <p>
+            <input type="text" name="message" placeholder="Enter Message...">
+            </p>
+            <button type="submit">Submit</button>
+        </form>
+        		<hr>
+		{% for todo in messagesCollection %}
+		<div class="todo">
+	    <!--Fetching a todo-->
+		<p> {{ todo['message'] }} </p>
+		<!-- Deleting a todo -->
+		<form method="POST"
+			  action="{{ url_for('delete', id=todo['_id']) }}">
+		<input
+			  type="submit"
+			  value="Delete Message"
+			  onclick="return confirm('Are you sure you want to delete this message?')"/>
+		</form>
+		</div>
+		{% endfor %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: msg-pod
+  name: msg-pod
+spec:
+  containers:
+  - image: shivamrana28/msg:3.0.29
+    name: msg-pod
+    ports:
+    - containerPort: 5000
+    env:
+      - name: MONGO_HOST
+        value: "mongodb-service"
+      - name: MONGO_PORT
+        value: "27017"
+      - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+        valueFrom:
+          secretKeyRef:
+            name: mongodb-secret
+            key: username
+      - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: mongodb-secret
+            key: password
+      - name: ME_CONFIG_MONGODB_SERVER
+        valueFrom:
+          configMapKeyRef:
+            name: mongodb-configmap
+            key: database_url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: msg-svc
+spec:
+  type: ClusterIP
+  selector:
+    run : msg-pod
+  ports:
+  - port: 5000
+    targetPort: 5000

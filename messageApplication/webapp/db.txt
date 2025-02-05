@@ -1,0 +1,16 @@
+db.runCommand({ getCmdLineOpts: 1 })
+use admin
+db.auth("admin" , "adminpassword")
+use messagesDB
+db.createCollection("messagesCollection")
+db.messagesCollection.insert({'message': 'This is Shivam'})
+
+db.createUser(
+  {
+    user: "admin",
+    pwd: "adminpassword",
+    roles: [ { role: "userAdmin", db: "messagesDB" },
+             { role: "dbAdmin", db: "messagesDB" },
+             { role: "readWrite", db: "messagesDB" } ]
+  }
+)
