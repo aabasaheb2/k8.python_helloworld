@@ -4,6 +4,7 @@ db.auth("admin" , "adminpassword")
 use messagesDB
 db.createCollection("messagesCollection")
 db.messagesCollection.insert({'message': 'This is Shivam'})
+db.messagesCollection.find()
 
 db.createUser(
   {

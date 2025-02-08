@@ -8,7 +8,6 @@ app = Flask(__name__, template_folder='templates')
 
 # Create the mongodb client
 #client = MongoClient('localhost', 27017)
-#uri= "mongodb://%s:%s@%s" % (quote_plus('admin'), quote_plus('adminpassword'), 'mongodb-service:27017' )
 uri= "mongodb://%s:%s@%s" % (quote_plus(variables.decodedUsername), quote_plus(variables.decodedPassword), 'mongodb-service:27017' )
 client = MongoClient(uri)
 
